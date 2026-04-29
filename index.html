@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SnapGrowth — Pré-test</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f4f4f5;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      text-align: center;
+      max-width: 500px;
+      padding: 40px 20px;
+    }
+    h1 {
+      color: #1877F2;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    p {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .error {
+      color: #c00;
+      background: #fee;
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SnapGrowth</h1>
+    <p>Le bot va apparaître en bas à droite de l'écran. Cliquez dessus pour démarrer la conversation.</p>
+    <div id="error" class="error" style="display:none;">
+      Lien invalide. Veuillez utiliser le lien personnel reçu par email, ou contacter Sylvain.
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    (function(d, t) {
+      // Récupère le user_id depuis l'URL (ex: ?user=abc123)
+      var urlParams = new URLSearchParams(window.location.search);
+      var userId = urlParams.get('user');
+
+      // Si pas de user_id, affiche l'erreur et n'embed pas le widget
+      if (!userId) {
+        document.getElementById('error').style.display = 'block';
+        return;
+      }
+
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: 'TON_PROJECT_ID' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          userID: userId
+        });
+      };
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+      v.type = "text/javascript";
+      s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
+</body>
+</html>
