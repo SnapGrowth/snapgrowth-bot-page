@@ -73,8 +73,13 @@
       target: document.getElementById('chat-container')
     },
     launch: {
-      event: { type: 'launch' }
+  event: {
+    type: 'launch',
+    payload: {
+      user_id: userId
     }
+  }
+}
   });
 };
       v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
