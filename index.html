@@ -43,34 +43,37 @@
 <body>
   <div class="container">
     <h1>SnapGrowth</h1>
-    <p>Le bot va apparaître en bas à gauche de l'écran. Cliquez dessus pour démarrer la conversation.</p>
+    <p>Démarrez votre conversation avec le bot ci-dessous.</p>
     <div id="error" class="error" style="display:none;">
       Lien invalide. Veuillez utiliser le lien personnel reçu par email, ou contacter Sylvain.
     </div>
+    <div id="chat-container" style="width: 100%; max-width: 700px; height: 600px; margin-top: 20px;"></div>
   </div>
 
   <script type="text/javascript">
     (function(d, t) {
-      // Récupère le user_id depuis l'URL (ex: ?user=abc123)
       var urlParams = new URLSearchParams(window.location.search);
       var userId = urlParams.get('user');
 
-      // Si pas de user_id, affiche l'erreur et n'embed pas le widget
       if (!userId) {
         document.getElementById('error').style.display = 'block';
+        document.getElementById('chat-container').style.display = 'none';
         return;
       }
 
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
       v.onload = function() {
-  window.voiceflow.chat.load({
-    verify: { projectID: '69f21f8f8b727e22aa145317' },
-    url: 'https://general-runtime.voiceflow.com',
-    versionID: 'development',
-    userID: userId
-  });
-};
-};
+        window.voiceflow.chat.load({
+          verify: { projectID: '69f21f8f8b727e22aa145317' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'development',
+          userID: userId,
+          render: {
+            mode: 'embedded',
+            target: document.getElementById('chat-container')
+          }
+        });
+      };
       v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
       v.type = "text/javascript";
       s.parentNode.insertBefore(v, s);
