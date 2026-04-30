@@ -68,18 +68,8 @@
     url: 'https://general-runtime.voiceflow.com',
     versionID: 'development',
     userID: userId
-  }).then(() => {
-    window.voiceflow.chat.destroy();
-    return window.voiceflow.chat.load({
-      verify: { projectID: '69f21f8f8b727e22aa145317' },
-      url: 'https://general-runtime.voiceflow.com',
-      versionID: 'development',
-      userID: userId,
-      launch: {
-        event: { type: 'launch' }
-      }
-    });
   });
+};
 };
       v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
       v.type = "text/javascript";
